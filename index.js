@@ -17,8 +17,6 @@ export const index = async () =>
 	process.stdin.on( 'data', async ( chunk ) =>
 	{
 		const [command, ...args] = chunk.toString().trim().split( ' ' );
-
-
 if (!!comObj[command] )
 {
 await	comObj[command]( ...args)

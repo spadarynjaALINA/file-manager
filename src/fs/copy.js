@@ -5,15 +5,15 @@ import { access } from 'fs';
 import path from 'path';
 const errorMsg = new Error( 'Operation failed\n' );
 
-export const copyFunc = async (source, dir ) =>
+export const copyFunc = async (source, d ) =>
 {
 	try {
 	const file = newPath( source );
 	const index = file.lastIndexOf('\\')
 	const fileName = file.slice( index )
-	const des = newPath( dir )
+	const des = newPath( d )
 	const destination = path.join(des,fileName)
-
+console.log(destination, fileName, 'source',source)
     access( file, (err) => {
         if ( err )
         {
@@ -27,14 +27,14 @@ export const copyFunc = async (source, dir ) =>
     {
         process.stdout.write( 'copied\n' )
         process.stdout.write( `You are currently in ${cwd()}\n` )
-       } ).on( 'error', () =>
+       } ).on( 'error', (err) =>
        {
-           console.log( errorMsg.message );
+           console.log( errorMsg.message, 'from copy2', err );
            process.stdout.write( `You are currently in ${cwd()}\n` )
        } )
         }
   } )} catch (error) {
-		 console.log( errorMsg.message );
+		 console.log( errorMsg.message, 'from copy3' );
            process.stdout.write( `You are currently in ${cwd()}\n` )
 	}
 }

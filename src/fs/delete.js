@@ -14,7 +14,7 @@ export const remove = async ( filePath ) =>
         const errorMsg = new Error( 'Operation failed\n' )
         fs.access( file, ( err ) =>
     {
-        if ( err ) { console.error( errorMsg.message ) }
+        if ( err ) { console.error( errorMsg.message,'from del' ) }
         else
         {
             fs.unlink( file, ( err ) =>
@@ -29,7 +29,7 @@ export const remove = async ( filePath ) =>
     } )
     //
 }catch  {
-    console.error( errorMsg.message )
+    console.error( errorMsg.message,'from del' )
 }
 
 };

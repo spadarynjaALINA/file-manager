@@ -10,12 +10,13 @@ export const osFunc = async ( a ) =>
 
 		const newCpus = () =>
 		{
+			const arr=[]
 			console.log('overall amount of CPUS:',os.cpus().length)
 			os.cpus().map( i =>
 			{
-			console.log(`Model${i.model.trim()}, clock rate: ${i.speed / 1000} GHz`)
-
-		} )
+			arr.push({model:i.model.trim(), 'clock rate':`${i.speed / 1000} GHz`})
+			} )
+			console.table(arr)
 		}
 
 		switch ( newArg )
