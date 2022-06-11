@@ -1,29 +1,40 @@
-import * as fs from 'fs';
+import fs from 'fs';
+import { cwd } from 'process';
+import { newPath } from '../utils/path.js';
+import { access } from 'fs';
 import path from 'path';
-import { remove } from './delete.js';
+const errorMsg = new Error( 'Operation failed\n' );
 
-export const copyFunc = async (filePath, newDir, move) =>
+export const copyFunc = async (source, dir ) =>
 {
-	const index = filePath.lastIndexOf('/')
-	const fileName = filePath.slice( index )
- const errorMsg = new Error('FS operation create failed');
-  fs.access( filePath, ( err ) =>
-  {
-			if ( err ) { console.error( errorMsg.message ) }
-			else
-    {
-       fs.access(path.join(  newDir, fileName ), ( err ) =>
-      {
-								if ( err ) {
+	try {
+	const file = newPath( source );
+	const index = file.lastIndexOf('\\')
+	const fileName = file.slice( index )
+	const des = newPath( dir )
+	const destination = path.join(des,fileName)
 
-									fs.copyFile(  filePath, path.join(  newDir, fileName ), ( err ) =>
-									{
-										if ( err )
-										{ console.error( errorMsg.message ) }
-										if( move){remove(filePath)}
-									})
-									}else {console.error( errorMsg.message)	}
-									})
-								}
-								})
+    access( file, (err) => {
+        if ( err )
+        {
+            console.error( errorMsg.message,`You are currently in ${cwd()}\n`);
+        } else
+        {
+             const input = fs.createReadStream( file, 'utf-8' );
+        const output = fs.createWriteStream( destination );
+
+       input.pipe( output ).on( 'finish', () =>
+    {
+        process.stdout.write( 'copied\n' )
+        process.stdout.write( `You are currently in ${cwd()}\n` )
+       } ).on( 'error', () =>
+       {
+           console.log( errorMsg.message );
+           process.stdout.write( `You are currently in ${cwd()}\n` )
+       } )
+        }
+  } )} catch (error) {
+		 console.log( errorMsg.message );
+           process.stdout.write( `You are currently in ${cwd()}\n` )
+	}
 }

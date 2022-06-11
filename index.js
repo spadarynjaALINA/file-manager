@@ -4,6 +4,7 @@ import { chdir } from 'process';
 import { cwd } from 'process';
 import { out } from './src/exit.js';
 import { comObj } from './src/commands.js';
+import { access } from 'fs';
 export const index = async () =>
 {
 	const home = os.homedir()
@@ -15,10 +16,12 @@ export const index = async () =>
 	process.stdout.write( `You are currently in ${cwd()}\n` )
 	process.stdin.on( 'data', async ( chunk ) =>
 	{
-	const [command, ...args] = chunk.toString().trim().split(' ')
+		const [command, ...args] = chunk.toString().trim().split( ' ' );
+
+
 if (!!comObj[command] )
 {
-await	comObj[command]( ...args )
+await	comObj[command]( ...args)
 		} else
 		{
 			process.stdout.write( 'Invalid input\n' )

@@ -38,3 +38,5 @@ export const comObj = {
 // hash D:\NODEJS\file-manager\file.txt
 // cat D:\NODEJS\file-manager\file.txt
 // rm D:\NODEJS\file-manager\file.txt
+// rn D:\NODEJS\file-manager\file.txt D:\NODEJS\file-manager\file1.txt
+// cp D:\NODEJS\file-manager\file.txt D:\NODEJS\file-manager\src

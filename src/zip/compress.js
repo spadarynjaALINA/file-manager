@@ -11,7 +11,6 @@ export const compress = async (source, zip ) =>
 {
     const file = newPath( source );
     const destination = newPath( zip )
-    console.log( file,',', destination )
 
     access( file, (err) => {
         if ( err )
