@@ -1,7 +1,7 @@
 import * as fs from 'fs';
 import path from 'path';
 import { access, constants } from 'node:fs';
-import { newPath } from '../utils/path';
+import { newPath } from '../utils/path.js';
 
 
 export const create = async (newFileName) =>
