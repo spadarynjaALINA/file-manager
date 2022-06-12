@@ -41,3 +41,4 @@ export const comObj = {
 // rn D:\NODEJS\file-manager\file.txt D:\NODEJS\file-manager\file1.txt
 // cp D:\NODEJS\file-manager\file.txt D:\NODEJS\file-manager\src
 // add D:\NODEJS\file-manager\file22.txt
+// mv D:\NODEJS\file-manager\file.txt D:\NODEJS\file-manager\src

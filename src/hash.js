@@ -1,19 +1,20 @@
-
-// hash ..\..\Users\bbk\Desktop\task.txt
-// hash C:\Users\bbk\Desktop\task.txt
-// hash D:\file.txt
+// if your file includes space, write it with " ' " : 'your file.txt'
 // hash D:\NODEJS\file-manager\file.txt
 // GEt-FileHash D:\file.txt
+
+import { argsTransform } from './utils/fileWithSpace.js'
 import fs from 'fs'
 import { newPath } from './utils/path.js'
 import { cwd } from 'process'
 const errMsg = new Error( 'Operation failed\n' )
 
-export const calculateHash = async (file) =>
-{const filename = newPath( file )
+export const calculateHash = async (...args) =>
+{
   try
   {
-
+const argsArr = args.some(item=> item.includes('\'')) ? argsTransform(args) : args
+    const [file] = argsArr
+    const filename = newPath( file )
     const { createHash } = await import('crypto');
     const hash = createHash('sha256');
     const input = fs.createReadStream( filename );

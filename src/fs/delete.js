@@ -1,20 +1,24 @@
 // rm D:\NODEJS\file-manager\file.txt
+// if your file includes space, write it with " ' " : 'your file.txt'
 
 import { unlink } from 'node:fs';
 import * as fs from 'fs';
 import { newPath } from '../utils/path.js';
 import process from 'node:process';
 import { cwd } from 'node:process';
+import { argsTransform } from '../utils/fileWithSpace.js';
 
-export const remove = async ( filePath ) =>
+export const remove = async ( ...args) =>
 {
     try
     {
+        const argsArr = args.some( item => item.includes( '\'' ) ) ? argsTransform( args ) : args
+        const [filePath ] =  argsArr
         const file = newPath( filePath )
         const errorMsg = new Error( 'Operation failed\n' )
         fs.access( file, ( err ) =>
     {
-        if ( err ) { console.error( errorMsg.message,'from del' ) }
+        if ( err ) { console.error( errorMsg.message ) }
         else
         {
             fs.unlink( file, ( err ) =>
@@ -27,9 +31,7 @@ export const remove = async ( filePath ) =>
             } )
         }
     } )
-    //
-}catch  {
-    console.error( errorMsg.message,'from del' )
+  }catch (e) {
+    console.error( errorMsg.message, e )
 }
-
 };

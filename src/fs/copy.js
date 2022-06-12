@@ -1,19 +1,25 @@
+// cp 'D:\NODEJS\file-manager\for Copy.txt' 'D:\NODEJS\file-manager\src'
+// if your file includes space, write it with " ' " : 'your file.txt'
+
 import fs from 'fs';
 import { cwd } from 'process';
 import { newPath } from '../utils/path.js';
 import { access } from 'fs';
 import path from 'path';
+import { argsTransform } from '../utils/fileWithSpace.js';
 const errorMsg = new Error( 'Operation failed\n' );
 
-export const copyFunc = async (source, d ) =>
+export const copyFunc = async (...args ) =>
 {
-	try {
-	const file = newPath( source );
+    try
+    {
+    const argsArr = args.some(item=> item.includes('\'')) ? argsTransform(args) : args
+    const [source,d] =  argsArr
+	const file = newPath( source.trim() );
 	const index = file.lastIndexOf('\\')
 	const fileName = file.slice( index )
-	const des = newPath( d )
+	const des = newPath( d.trim() )
 	const destination = path.join(des,fileName)
-console.log(destination, fileName, 'source',source)
     access( file, (err) => {
         if ( err )
         {
@@ -29,12 +35,12 @@ console.log(destination, fileName, 'source',source)
         process.stdout.write( `You are currently in ${cwd()}\n` )
        } ).on( 'error', (err) =>
        {
-           console.log( errorMsg.message, 'from copy2', err );
+           console.log( errorMsg.message);
            process.stdout.write( `You are currently in ${cwd()}\n` )
        } )
         }
   } )} catch (error) {
-		 console.log( errorMsg.message, 'from copy3' );
+		 console.log( errorMsg.message, error);
            process.stdout.write( `You are currently in ${cwd()}\n` )
 	}
 }

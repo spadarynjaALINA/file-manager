@@ -1,24 +1,26 @@
 // rn D:\NODEJS\file-manager\file.txt file1.txt
+// if your file includes space, write it with " ' " : 'your file.txt'
 
 import * as fs from 'fs';
-import path from 'path';
 import { newPath } from '../utils/path.js';
 import process from 'node:process';
 import { cwd } from 'node:process';
-import { rename as renameFile } from 'node:fs/promises'
+import { rename as renameFile } from 'node:fs/promises';
+import { argsTransform } from '../utils/fileWithSpace.js';
+
+export const rename = async (...args) =>
+     {
+
 const errorMsg = new Error( 'Operation failed\n' )
-
-
-export const rename = async (fileName, newFileName) =>
-{ console.log(fileName, newFileName)
-
     try
     {
-          const file = newPath( fileName );
-        const index = file.lastIndexOf( '\\' )
+        const argsArr = args.some( item => item.includes( '\'' ) ) ? argsTransform( args ) : args;
+        const [fileName, newFileName] = argsArr;
+        const file = newPath( fileName.trim() );
+        const index = file.lastIndexOf( '\\' );
 
-        const newFile = `${file.slice(0, index +1 )}${newFileName}`
-         console.log(file, newFile)
+        const newFile = `${file.slice( 0, index + 1 )}${newFileName}`;
+        console.log( file, newFile );
         fs.access( newFile , ( err ) =>
   {
      if ( err )
@@ -39,12 +41,12 @@ renameFile(file, newFile, (err) => {
          })
      } else
              {
-         console.error( errorMsg.message )
+         console.error( errorMsg.message)
           process.stdout.write( `You are currently in ${cwd()}\n` )
              }
     })
     } catch (error) {
-        console.error( error )
+        console.error( errorMsg.message)
          process.stdout.write( `You are currently in ${cwd()}\n` )
     }
 
