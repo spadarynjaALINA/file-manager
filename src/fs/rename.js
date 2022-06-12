@@ -1,4 +1,4 @@
-// rn D:\NODEJS\file-manager\file.txt D:\NODEJS\file-manager\file1.txt
+// rn D:\NODEJS\file-manager\file.txt file1.txt
 
 import * as fs from 'fs';
 import path from 'path';
@@ -14,12 +14,11 @@ export const rename = async (fileName, newFileName) =>
 
     try
     {
-        console.log(fileName, newFileName)
-   fileName=  fileName.includes( '\'' ) ? fileName.slice( 1, fileName.length - 1 ) : fileName;
-      newFileName=   newFileName.includes( '\'' ) ? newFileName.slice( 1, newFileName.length - 1 ) : newFileName;
-         console.log(fileName, newFileName)
-        const file = newPath( fileName );
-        const newFile = newPath( newFileName )
+          const file = newPath( fileName );
+        const index = file.lastIndexOf( '\\' )
+
+        const newFile = `${file.slice(0, index +1 )}${newFileName}`
+         console.log(file, newFile)
         fs.access( newFile , ( err ) =>
   {
      if ( err )
