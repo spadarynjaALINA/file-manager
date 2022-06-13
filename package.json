@@ -1,0 +1,21 @@
+{
+  "name": "file-manager",
+  "version": "1.0.0",
+  "description": "task 2",
+   "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "start":"node index",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/spadarynjaALINA/file-manager.git"
+  },
+  "author": "Alina Husarava",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/spadarynjaALINA/file-manager/issues"
+  },
+  "homepage": "https://github.com/spadarynjaALINA/file-manager#readme"
+}
